@@ -10,7 +10,6 @@ module colorList {
 
     export interface IColor extends IColorDescription, IGroupColor { }
 
-
     export var LISTOFCOLOR: IColor[] = [
         { name: "Pink", hex: "#FFC0CB", groupColor: 'Pink Colors' },
         { name: "Light Pink", hex: "#FFB6C1", groupColor: 'Pink Colors' },
@@ -98,19 +97,13 @@ module randomLib {
     }
 }
 
-// function checkAnswer(isCorrect: boolean): boolean {
-//     console.log(isCorrect);
-//     return isCorrect;
-// }
-
 class Dot {
     element: HTMLElement;
     color: colorList.IColor;
 
     constructor(item: colorList.IColor,selected:number) {
         this.color = item;
-        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";'></div>");
-        console.log(selected);
+        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";' title='color:"+ item.hex +"'></div>");
         this.element.click((e) => { this.checkAnswer(e,selected) });
     }
 
@@ -164,9 +157,50 @@ class RowOfDots {
 }
 
 
-var rows: RowOfDots[] = [];
-
-for (var j = 0; j < 3; j++){
-    rows[j] = new RowOfDots(3);
-    $('#main').append(rows[j].outterElement);
+interface IOptions {
+    rows: number;
+    dots: number;
+    nivel: number;
 }
+
+
+
+var Options: IOptions = {
+    rows: 3,
+    dots:10
+}
+
+
+
+class Board { }
+
+
+
+class Game{
+    rows: RowOfDots[]= [];
+
+    constructor(Options:IOptions) {
+        for (var j = 0; j < Options.rows; j++){
+            this.rows[j] = new RowOfDots(Options.dots);
+            $('#main').append(this.rows[j].outterElement);
+        }
+
+    }
+}
+
+
+
+var game = new Game(Options);
+
+
+
+/*
+    Todo
+    add jquery .d.ts
+    Add Board
+    add colors list
+    add modules
+    add Design / bower Bootstrap
+
+
+*/

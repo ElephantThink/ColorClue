@@ -78,16 +78,11 @@ var randomLib;
     }
     randomLib.getRandom = getRandom;
 })(randomLib || (randomLib = {}));
-// function checkAnswer(isCorrect: boolean): boolean {
-//     console.log(isCorrect);
-//     return isCorrect;
-// }
 var Dot = (function () {
     function Dot(item, selected) {
         var _this = this;
         this.color = item;
-        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";'></div>");
-        console.log(selected);
+        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";' title='color:" + item.hex + "'></div>");
         this.element.click(function (e) { _this.checkAnswer(e, selected); });
     }
     Dot.prototype.checkAnswer = function (e, selected) {
@@ -123,9 +118,34 @@ var RowOfDots = (function () {
     }
     return RowOfDots;
 })();
-var rows = [];
-for (var j = 0; j < 3; j++) {
-    rows[j] = new RowOfDots(3);
-    $('#main').append(rows[j].outterElement);
-}
+var Options = {
+    rows: 3,
+    dots: 10
+};
+var Board = (function () {
+    function Board() {
+    }
+    return Board;
+})();
+var Game = (function () {
+    function Game(Options) {
+        this.rows = [];
+        for (var j = 0; j < Options.rows; j++) {
+            this.rows[j] = new RowOfDots(Options.dots);
+            $('#main').append(this.rows[j].outterElement);
+        }
+    }
+    return Game;
+})();
+var game = new Game(Options);
+/*
+    Todo
+    add jquery .d.ts
+    Add Board
+    add colors list
+    add modules
+    add Design / bower Bootstrap
+
+
+*/ 
 //# sourceMappingURL=color.js.map
