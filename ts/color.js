@@ -25,7 +25,26 @@ var colorList;
         { name: "Slate Blue", hex: "#6A5ACD", groupColor: 'Purple Colors' },
         { name: "Dark Slate Blue", hex: "#483D8B", groupColor: 'Purple Colors' },
         { name: "Rebecca Purple", hex: "#663399", groupColor: 'Purple Colors' },
-        { name: "Indigo", hex: "#4B0082", groupColor: 'Purple Colors' }
+        { name: "Indigo", hex: "#4B0082", groupColor: 'Purple Colors' },
+        { name: "Light Salmon", hex: "#FFA07A", groupColor: 'Red Colors' },
+        { name: "Salmon", hex: "#FA8072", groupColor: 'Red Colors' },
+        { name: "Dark Salmon", hex: "#E9967A", groupColor: 'Red Colors' },
+        { name: "Light Coral", hex: "#F08080", groupColor: 'Red Colors' },
+        { name: "Indian Red", hex: "#CD5C5C", groupColor: 'Red Colors' },
+        { name: "Crimson", hex: "#DC143C", groupColor: 'Red Colors' },
+        { name: "Fire Brick", hex: "#B22222", groupColor: 'Red Colors' },
+        { name: "Dark Red", hex: "#8B0000", groupColor: 'Red Colors' },
+        { name: "Red", hex: "#FF0000", groupColor: 'Red Colors' },
+        { name: "Orange Red", hex: "#FF4500", groupColor: 'Orange Colors' },
+        { name: "Tomato", hex: "#FF6347", groupColor: 'Orange Colors' },
+        { name: "Coral", hex: "#FF7F50", groupColor: 'Orange Colors' },
+        { name: "Dark Orange", hex: "#FF8C00", groupColor: 'Orange Colors' },
+        { name: "Orange", hex: "#FFA500", groupColor: 'Orange Colors' },
+        { name: "Gold", hex: "#FFD700", groupColor: 'Yellow Colors' },
+        { name: "Yellow", hex: "#FFFF00", groupColor: 'Yellow Colors' },
+        { name: "Light Yellow", hex: "#FFFFE0", groupColor: 'Yellow Colors' },
+        { name: "Lemon Chiffon", hex: "#FFFACD", groupColor: 'Yellow Colors' },
+        { name: "Light Goldenrod Yellow", hex: "#FAFAD2", groupColor: 'Yellow Colors' },
     ];
 })(colorList || (colorList = {}));
 var colorTools;
@@ -105,7 +124,7 @@ var RowOfDots = (function () {
         this.outterElement = $("<div class='row-color'></div>");
         this.colorsDotCollection = $("<div class='dot-collections'></div>");
         this.questionElement = $("<div class='question'></div>");
-        this.listOfRandom = randomLib.getRandom(numberOfElement, 24, false);
+        this.listOfRandom = randomLib.getRandom(numberOfElement, colorTools.getLenghtColor(), false);
         this.selected = randomLib.getRandom(1, numberOfElement)[0];
         for (var i = 0; i < this.numberOfElement; i++) {
             this.listOfElement[i] = new Dot(colorTools.getColorUsingIndex(this.listOfRandom[i]), this.selected);
@@ -120,7 +139,8 @@ var RowOfDots = (function () {
 })();
 var Options = {
     rows: 3,
-    dots: 10
+    dots: 10,
+    nivel: 1,
 };
 var Board = (function () {
     function Board() {
@@ -141,6 +161,7 @@ var game = new Game(Options);
 /*
     Todo
     add jquery .d.ts
+    checkNames
     Add Board
     add colors list
     add modules
