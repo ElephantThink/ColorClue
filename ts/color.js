@@ -74,18 +74,58 @@ var randomLib;
         for (var i = 0; i < returnLenght; i++) {
             getRandomNumber();
         }
-        //Return an Array of random numbers
         return listOfRandom;
     }
     randomLib.getRandom = getRandom;
 })(randomLib || (randomLib = {}));
-var Circle = (function () {
-    function Circle(hex) {
-        this.element = $("<div class='color-dot " + hex + "' style='background-color:" + hex + ";'></div>")[0];
+// function checkAnswer(isCorrect: boolean): boolean {
+//     console.log(isCorrect);
+//     return isCorrect;
+// }
+var Dot = (function () {
+    function Dot(item, selected) {
+        var _this = this;
+        this.color = item;
+        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";'></div>");
+        console.log(selected);
+        this.element.click(function (e) { _this.checkAnswer(e, selected); });
     }
-    ;
-    return Circle;
+    Dot.prototype.checkAnswer = function (e, selected) {
+        var isCorrect = e.currentTarget === this.element.parent('.dot-collections').find('.color-dot').eq(selected)[0];
+        this.element.parent('.dot-collections').find('.color-dot').off('click');
+        if (isCorrect) {
+            this.element.addClass('correct');
+        }
+        else {
+            this.element.addClass('incorrect');
+            this.element.parent('.dot-collections').find('.color-dot').eq(selected).addClass('correct');
+        }
+    };
+    return Dot;
 })();
-var p = new Circle(colorTools.getColorUsingIndex(randomLib.getRandom(1, 24, false)[0]).hex);
-$('#main').append(p.element);
+var RowOfDots = (function () {
+    function RowOfDots(numberOfElement) {
+        this.listOfElement = [];
+        this.numberOfElement = numberOfElement;
+        this.outterElement = $("<div class='row-color'></div>");
+        this.colorsDotCollection = $("<div class='dot-collections'></div>");
+        this.questionElement = $("<div class='question'></div>");
+        this.listOfRandom = randomLib.getRandom(numberOfElement, 24, false);
+        this.selected = randomLib.getRandom(1, numberOfElement)[0];
+        for (var i = 0; i < this.numberOfElement; i++) {
+            this.listOfElement[i] = new Dot(colorTools.getColorUsingIndex(this.listOfRandom[i]), this.selected);
+            this.colorsDotCollection.append(this.listOfElement[i].element[0]);
+        }
+        this.questionElement.text(this.listOfElement[this.selected].color.name);
+        ;
+        this.outterElement.append(this.colorsDotCollection);
+        this.outterElement.append(this.questionElement);
+    }
+    return RowOfDots;
+})();
+var rows = [];
+for (var j = 0; j < 3; j++) {
+    rows[j] = new RowOfDots(3);
+    $('#main').append(rows[j].outterElement);
+}
 //# sourceMappingURL=color.js.map

@@ -93,25 +93,80 @@ module randomLib {
         for (var i = 0; i < returnLenght; i++){
                 getRandomNumber();
         }
-        //Return an Array of random numbers
+
         return listOfRandom;
     }
 }
 
+// function checkAnswer(isCorrect: boolean): boolean {
+//     console.log(isCorrect);
+//     return isCorrect;
+// }
 
-class Circle {
+class Dot {
     element: HTMLElement;
+    color: colorList.IColor;
 
-    constructor(hex: string) {
-        this.element = $("<div class='color-dot " + hex + "' style='background-color:" + hex +";'></div>")[0];
-    };
+    constructor(item: colorList.IColor,selected:number) {
+        this.color = item;
+        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + ";'></div>");
+        console.log(selected);
+        this.element.click((e) => { this.checkAnswer(e,selected) });
+    }
+
+    checkAnswer(e: Event, selected: number): void {
+        var isCorrect = e.currentTarget === this.element.parent('.dot-collections').find('.color-dot').eq(selected)[0];
+        this.element.parent('.dot-collections').find('.color-dot').off('click');
+
+        if (isCorrect) {
+            this.element.addClass('correct');
+        } else {
+            this.element.addClass('incorrect');
+            this.element.parent('.dot-collections').find('.color-dot').eq(selected).addClass('correct');
+        }
+
+    }
+}
+
+class RowOfDots {
+    private numberOfElement: number;
+
+    outterElement: HTMLElement;
+    colorsDotCollection: HTMLElement;
+    questionElement: HTMLElement;
+
+    listOfElement: Dot[] = [];
+    listOfRandom: number[];
+
+    selected: number;
+
+    constructor(numberOfElement) {
+        this.numberOfElement = numberOfElement;
+        this.outterElement = $("<div class='row-color'></div>");
+        this.colorsDotCollection = $("<div class='dot-collections'></div>");
+        this.questionElement = $("<div class='question'></div>");
+
+        this.listOfRandom = randomLib.getRandom(numberOfElement, 24, false);
+
+        this.selected = randomLib.getRandom(1, numberOfElement)[0];
+
+        for (var i = 0; i < this.numberOfElement; i++){
+            this.listOfElement[i] = new Dot(colorTools.getColorUsingIndex(this.listOfRandom[i]),this.selected);
+            this.colorsDotCollection.append(this.listOfElement[i].element[0]);
+        }
+
+        this.questionElement.text(this.listOfElement[this.selected].color.name;);
+
+        this.outterElement.append(this.colorsDotCollection);
+        this.outterElement.append(this.questionElement);
+    }
 
 }
 
 
+var rows: RowOfDots[] = [];
 
-var p = new Circle(colorTools.getColorUsingIndex(randomLib.getRandom(1,24,false)[0]).hex);
-
-
-$('#main').append(p.element);
-
+for (var j = 0; j < 3; j++){
+    rows[j] = new RowOfDots(3);
+    $('#main').append(rows[j].outterElement);
+}
