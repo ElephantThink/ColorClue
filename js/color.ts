@@ -1,3 +1,5 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+
 module colorList {
     export interface IGroupColor {
         groupColor: string;
@@ -247,7 +249,7 @@ module randomLib {
 }
 
 class Dot {
-    element: HTMLElement;
+    element: JQuery;
     color: colorList.IColor;
 
     constructor(item: colorList.IColor, selected: number) {
@@ -286,9 +288,9 @@ class Dot {
 class RowOfDots {
     private numberOfElement: number;
 
-    outterElement: HTMLElement;
-    colorsDotCollection: HTMLElement;
-    questionElement: HTMLElement;
+    outterElement: JQuery;
+    colorsDotCollection: JQuery;
+    questionElement: JQuery;
 
     listOfElement: Dot[] = [];
     listOfRandom: number[];
@@ -310,7 +312,7 @@ class RowOfDots {
             this.colorsDotCollection.append(this.listOfElement[i].element[0]);
         }
 
-        this.questionElement.text(this.listOfElement[this.selected].color.name;);
+        this.questionElement.text(this.listOfElement[this.selected].color.name);
 
         this.outterElement.append(this.colorsDotCollection);
         this.outterElement.append(this.questionElement);
@@ -359,7 +361,7 @@ var game = new Game(Options);
 /*
     Todo
     add jquery .d.ts
-    organize files (Change estructure)
+    organize files (Change estructure)//
     checkNames
     Add Board
     add colors list
