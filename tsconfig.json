@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
-        "target": "ES5",
+        "target": "es5",
         "sourceMap": true,
-        "preserveConstEnums":true
+        "preserveConstEnums":true,
+        "module": "amd"
     }
 }
