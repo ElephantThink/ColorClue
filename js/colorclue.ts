@@ -1,78 +1,90 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="colorCore.ts" />
-/// <reference path="randomCore.ts" />
-/// <reference path="colorList.ts" />
+import $ = require('jquery');
+import randomLib = require('randomCore');
+import colorList = require('colorList');
+import colorMetric = require('colorCore');
+import domCore = require('domCore');
 
-class Board {
 
-    element: JQuery;
-    goodPoints: number = 0;
-    badPoints: number = 0;
+class Board extends domCore.baseTemplate {
+    private goodPoints: number = 0;
+    private badPoints: number = 0;
 
-    constructor() {
-        this.element = $('<span id="counter">Good :  / Bad :  </span>');
-        $('#header').append(this.element);
-    };
+        constructor(parentElement: string, template: string) {
+            super(parentElement, template);
+            this.addElement();
+            this.renderScreen();
+        };
 
-    putGoodPoints():void {
-        this.goodPoints++;
-        this.renderScreen();
-    };
+        putGoodPoints():void {
+            this.goodPoints++;
+            this.renderScreen();
+        };
 
-    putBadPoints():void {
-        this.badPoints++;
-        this.renderScreen();
-    };
+        putBadPoints():void {
+            this.badPoints++;
+            this.renderScreen();
+        };
 
-    renderScreen():void {
-        this.element.text('Good : ' + this.goodPoints + '/ Bad : ' + this.badPoints);
-    };
+        renderScreen():void {
+            this.element.text('Good : ' + this.goodPoints + '/ Bad : ' + this.badPoints);
+        };
 }
 
-class Dot {
-    element: JQuery;
-    color: colorList.IColor;
 
-    constructor(item: colorList.IColor, selected: number) {
-        this.color = item;
-        this.element = $("<div class='color-dot " + item.hex + "' style='background-color:" + item.hex + "; align:center' title='color:" + item.hex + "'></div>");
-        this.element.click((e) => { this.checkAnswer(e, selected) });
-        var className = (colorMetric.hexToHsl(this.color.hex).l > 0.60) ? 'light' : 'Dark ';
+class Dot extends domCore.baseTemplate {
+    color: colorList.IColor;
+    constructor(parentElement: any, template: string, item: colorList.IColor, selected: number) {
+        super(parentElement, template);
+        super.addElement();
+
+        super.addAttr({
+            title: item.hex,
+        });
+
+        super.addStyle({
+            backgroundColor: item.hex
+        });
+
+        super.addEvent('click', (e) => { this.checkAnswer(e, selected) });
+
+        var className = (colorMetric.hexToHsl(item.hex).l > 0.60) ? 'light' : 'Dark ';
         this.element.addClass(className);
+        this.color = item;
     }
 
     checkAnswer(e: Event, selected: number): void {
-        var isCorrect = e.currentTarget === this.element.parent('.dot-collections').find('.color-dot').eq(selected)[0];
-        this.element.parent('.dot-collections').find('.color-dot').off('click');
+        this.parentElement.find('.color-dot').off('click');
 
-        if (!isCorrect) {
+        if (!(e.currentTarget === this.parentElement.find('.color-dot').eq(selected)[0])) {
             this.element.addClass('incorrect');
             board.putBadPoints();
         } else {
             board.putGoodPoints();
         }
 
-        this.element.parent('.dot-collections').find('.color-dot').eq(selected).addClass('correct');
+        this.parentElement.find('.color-dot').eq(selected).addClass('correct');
     }
 }
 
-class RowOfDots {
+
+class RowOfDots extends domCore.baseTemplate{
     private numberOfElement: number;
 
-    mainElement: JQuery;
     colorsDotCollection: JQuery;
     questionElement: JQuery;
 
     listOfElement: Dot[] = [];
     listOfRandom: number[];
 
-
-
     selected: number;
 
-    constructor(numberOfElement) {
+    constructor(parentElement,template,numberOfElement) {
+
+        super(parentElement, template);
+
         this.numberOfElement = numberOfElement;
-        this.mainElement = $("<div class='row-color'></div>");
+
         this.colorsDotCollection = $("<div class='dot-collections'></div>");
         this.questionElement = $("<div class='question'></div>");
 
@@ -81,28 +93,21 @@ class RowOfDots {
         this.selected = randomLib.getRandom(1, numberOfElement)[0];
 
         for (var i = 0; i < this.numberOfElement; i++) {
-            this.listOfElement[i] = new Dot(colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
+            this.listOfElement[i] = new Dot(this.element,"<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
             this.colorsDotCollection.append(this.listOfElement[i].element[0]);
         }
 
         this.questionElement.text(this.listOfElement[this.selected].color.name);
 
-        this.mainElement.append(this.colorsDotCollection);
-        this.mainElement.append(this.questionElement);
+        this.element.append(this.colorsDotCollection);
+        this.element.append(this.questionElement);
     }
-
 }
 
 
 
-class Game {
-
-    constructor() {
-    }
 
 
-
-}
 
 
 interface IOptions {
@@ -120,19 +125,29 @@ var Options: IOptions = {
 
 
 
+class Game {
+    constructor() {
+        var rows: RowOfDots[] = [];
 
-
-
-
-var board = new Board();
-var game = new Game();
-
-var rows: RowOfDots[] = [];
-
-for (var j = 0; j < Options.rows; j++) {
-    rows[j] = new RowOfDots(Options.dots);
-    $('#main').append(rows[j].mainElement);
+        for (var j = 0; j < Options.rows; j++) {
+            rows[j] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
+            $('#main').append(rows[j].element);
+        }
+    }
 }
+
+        var board = new Board('#header', '<div></div>');
+
+
+(() => {
+    var game = new Game();
+ })();
+
+
+
+
+
+
 
 /*
     Todo
@@ -140,7 +155,11 @@ for (var j = 0; j < Options.rows; j++) {
     organize files (Change estructure) //
     checkNames //
     Add Board //
-    add colors list
-    add modules
+    add colors list //
+    abstract tamplate base
+    add groups
+    add learn colors to no repeat
+    add modules //
     add Design / bower Bootstrap
 */
+

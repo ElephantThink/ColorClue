@@ -3,6 +3,7 @@
 <head>
     <title>Color Clue</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script data-main="js/colorclue" src="js/require.js"></script>
 </head>
 
 <body>
@@ -12,11 +13,23 @@
         <div id="main"></div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="js/colorList.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+    <!--<script src="js/colorList.js"></script>
     <script src="js/colorCore.js"></script>
     <script src="js/randomCore.js"></script>
-    <script src="js/colorclue.js"></script>
+    <script src="js/colorclue.js"></script>-->
+
+    <script>
+        requirejs.config({
+            baseUrl: 'js',
+            paths: {
+                jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min'
+            }
+        });
+
+
+        requirejs(["colorclue"]);
+    </script>
 </body>
 
 </html>

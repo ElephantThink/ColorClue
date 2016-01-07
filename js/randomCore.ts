@@ -1,24 +1,23 @@
-module randomLib {
-    export function getRandom(returnLenght: number, gap: number, float?: boolean): number[] {
-        var listOfRandom: number[] = [];
-        var randomNumber: number;
 
-        function getRandomNumber() {
+export function getRandom(returnLenght: number, gap: number, float?: boolean): number[] {
+    var listOfRandom: number[] = [];
+    var randomNumber: number;
 
-            randomNumber = (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
+    function getRandomNumber() {
 
-            if (listOfRandom.indexOf(randomNumber) !== -1) {
-                getRandomNumber();
-            } else {
-                listOfRandom.push(randomNumber);
-            }
+        randomNumber = (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
 
-        }
-
-        for (var i = 0; i < returnLenght; i++) {
+        if (listOfRandom.indexOf(randomNumber) !== -1) {
             getRandomNumber();
+        } else {
+            listOfRandom.push(randomNumber);
         }
 
-        return listOfRandom;
     }
+
+    for (var i = 0; i < returnLenght; i++) {
+        getRandomNumber();
+    }
+
+    return listOfRandom;
 }
