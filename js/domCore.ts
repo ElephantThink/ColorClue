@@ -28,3 +28,18 @@ export class baseTemplate {
         })
     }
 }
+
+
+export class listGenerator < T >{
+    listOf: T[] = [];
+
+
+    getItemFromIndex(index:number): T {
+        return this.listOf[index];
+    }
+
+    addItem(T) {
+        this.listOf.push(T);
+    }
+
+}

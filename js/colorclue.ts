@@ -31,7 +31,6 @@ class Board extends domCore.baseTemplate {
         };
 }
 
-
 class Dot extends domCore.baseTemplate {
     color: colorList.IColor;
     constructor(parentElement: any, template: string, item: colorList.IColor, selected: number) {
@@ -73,40 +72,46 @@ class RowOfDots extends domCore.baseTemplate{
 
     colorsDotCollection: JQuery;
     questionElement: JQuery;
-
     listOfElement: Dot[] = [];
     listOfRandom: number[];
-
     selected: number;
 
     constructor(parentElement,template,numberOfElement) {
-
         super(parentElement, template);
-
         this.numberOfElement = numberOfElement;
-
         this.colorsDotCollection = $("<div class='dot-collections'></div>");
         this.questionElement = $("<div class='question'></div>");
-
         this.listOfRandom = randomLib.getRandom(numberOfElement, colorList.getLenghtColor(), false);
-
         this.selected = randomLib.getRandom(1, numberOfElement)[0];
 
+        listOfColors.addItem(colorList.getColorUsingIndex(this.listOfRandom[this.selected]));
+
+
+        // function checkList() {
+            if (listOfColors.listOf.indexOf(colorList.getColorUsingIndex(this.listOfRandom[this.selected])) !== -1) {
+                this.selected = randomLib.getRandom(1, numberOfElement)[0];
+                // checkList();
+            }
+        // }
+
+
+
+
+
+        // checkList();
+
         for (var i = 0; i < this.numberOfElement; i++) {
-            this.listOfElement[i] = new Dot(this.element,"<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
+
+            this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
+
             this.colorsDotCollection.append(this.listOfElement[i].element[0]);
         }
 
         this.questionElement.text(this.listOfElement[this.selected].color.name);
-
         this.element.append(this.colorsDotCollection);
         this.element.append(this.questionElement);
     }
 }
-
-
-
-
 
 
 
@@ -118,7 +123,7 @@ interface IOptions {
 
 //Set Options of the game
 var Options: IOptions = {
-    rows: 5,
+    rows: 20,
     dots: 5,
     nivel: 1,
 }
@@ -130,24 +135,18 @@ class Game {
         var rows: RowOfDots[] = [];
 
         for (var j = 0; j < Options.rows; j++) {
+            console.log(listOfColors.listOf);
             rows[j] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
             $('#main').append(rows[j].element);
         }
     }
 }
 
-        var board = new Board('#header', '<div></div>');
 
 
-(() => {
+    var listOfColors = new domCore.listGenerator<colorList.IColor>();
+    var board = new Board('#header', '<div></div>');
     var game = new Game();
- })();
-
-
-
-
-
-
 
 /*
     Todo
@@ -156,10 +155,11 @@ class Game {
     checkNames //
     Add Board //
     add colors list //
-    abstract tamplate base
+    abstract tamplate base //
     add groups
     add learn colors to no repeat
     add modules //
+    add timr modules
     add Design / bower Bootstrap
 */
 
