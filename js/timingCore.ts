@@ -10,7 +10,8 @@ export class Interval {
     private time: milisecond;
     private active: boolean = false;
     private interval = null;
-    private autoOnInterval = null;
+    private timeTrigged: number =0;
+
 
     constructor(action, time) {
         this.action = action;
@@ -21,7 +22,7 @@ export class Interval {
         return this.time;
     }
 
-    setTime(newTime: milisecond) {
+    setTime(newTime: milisecond):void {
         if (!this.active) {
             this.time = newTime;
         } else {
@@ -31,41 +32,70 @@ export class Interval {
         }
     }
 
-    private switchState() {
+    private switchState():void {
         this.active = !this.active;
     }
 
-    stop() {
+    stop():void {
         if (!this.interval) {
             return;
         }
 
         clearInterval(this.interval);
+
         this.interval = null;
         this.switchState();
+        this.timeTrigged = 0;
     }
 
-    run() {
+    run(callback?):void {
         if (!this.active) {
             var self = this;
             var interval = setInterval(function() {
+                self.timeTrigged++;
                 self.action()
+                if (callback){
+                    callback();
+                }
             }, this.time);
-
             this.interval = interval;
             this.switchState();
         }
     }
 
-    autoOn(time: milisecond) {
-        this.stop();
-        var autoOnInterval = setInterval(() => {
+    autoStop(time: milisecond, callback?):void {
+        if (!this.active) {
+            var self = this;
             this.run();
-            this.autoOnInterval = null;
+            setTimeout(function() {
+                self.stop()
+                if (callback) {
+                    callback();
+                }
+            }, time);
+        }
+    }
+
+    autoOn(time: milisecond, callback?):void {
+
+        var self = this;
+        if (this.active) {
+            this.stop();
+        };
+
+       var interval = setTimeout(function(){
+            self.run();
+            if (callback) {
+                callback();
+            }
         }, time);
 
-        this.autoOnInterval = autoOnInterval;
+        this.interval = interval;
 
+    }
+
+    getTimeTrigged() {
+        return this.timeTrigged;
     }
 
 }

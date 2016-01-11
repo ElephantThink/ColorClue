@@ -6,6 +6,8 @@ import colorMetric = require('colorCore');
 import domCore = require('domCore');
 import timing = require('timingCore');
 
+window['juan'] = timing;
+
 class Board extends domCore.baseTemplate {
     private goodPoints: number = 0;
     private badPoints: number = 0;
@@ -63,6 +65,8 @@ class Dot extends domCore.baseTemplate {
         }
 
         this.parentElement.find('.color-dot').eq(selected).addClass('correct');
+        this.parentElement.slideUp('fast');
+
     }
 }
 
@@ -105,7 +109,7 @@ interface IOptions {
 }
 
 var Options: IOptions = {
-    rows: 20,
+    rows:5,
     dots: 5,
     nivel: 1,
 }
@@ -114,29 +118,43 @@ class Game {
     constructor() {
         var rows: RowOfDots[] = [];
 
-        for (var j = 0; j < Options.rows; j++) {
-            rows[j] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
-            $('#main').append(rows[j].element);
+        function make(i:number) {
+             rows[i] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
+            $('#main').append(rows[i].element);
         }
+
+        for (var j = 0; j < Options.rows; j++) {
+            make(j);
+        }
+
+        setTimeout(function() {
+            alert('stop');
+        }, 60000);
+
+        setInterval(function() {
+            if ($('.row-color:visible').length < 5) {
+                Options.rows++
+                make(Options.rows);
+            }
+         },100);
     }
 }
 
-    var listOfColors = new domCore.listGenerator<colorList.IColor>();
-    var board = new Board('#header', '<div></div>');
-    var game = new Game();
+var listOfColors = new domCore.listGenerator<colorList.IColor>();
+var board = new Board('#header', '<div></div>');
+var game = new Game();
 
 /*
+    =============================
     Todo
-    add jquery .d.ts //
-    organize files (Change estructure) //
-    checkNames //
-    Add Board //
-    add colors list //
-    abstract tamplate base //
+    ============================
+
     add groups
+
     add learn colors to no repeat
-    add modules //
-    add timr modules //
+
+    implement Time Modules
+
     add Design / bower Bootstrap
 */
 
