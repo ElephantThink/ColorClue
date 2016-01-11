@@ -3,12 +3,10 @@ import $ = require('jquery');
 import randomLib = require('randomCore');
 import colorList = require('colorList');
 import colorMetric = require('colorCore');
-import domCore = require('domCore');
+import component = require('domCore');
 import timing = require('timingCore');
 
-window['juan'] = timing;
-
-class Board extends domCore.baseTemplate {
+class Board extends component.Base {
     private goodPoints: number = 0;
     private badPoints: number = 0;
 
@@ -33,7 +31,7 @@ class Board extends domCore.baseTemplate {
         };
 }
 
-class Dot extends domCore.baseTemplate {
+class Dot extends component.Base {
     color: colorList.IColor;
     constructor(parentElement: any, template: string, item: colorList.IColor, selected: number) {
         super(parentElement, template);
@@ -70,11 +68,12 @@ class Dot extends domCore.baseTemplate {
     }
 }
 
-class RowOfDots extends domCore.baseTemplate{
+
+class RowOfDots extends component.Base{
     private numberOfElement: number;
 
-    colorsDotCollection: JQuery;
-    questionElement: JQuery;
+    colorsDotCollection: component.Base;
+    questionElement:component.Base;
     listOfElement: Dot[] = [];
     listOfRandom: number[];
     selected: number;
@@ -82,8 +81,8 @@ class RowOfDots extends domCore.baseTemplate{
     constructor(parentElement,template,numberOfElement) {
         super(parentElement, template);
         this.numberOfElement = numberOfElement;
-        this.colorsDotCollection = $("<div class='dot-collections'></div>");
-        this.questionElement = $("<div class='question'></div>");
+        this.colorsDotCollection = new component.Base(this.element,"<div class='dot-collections'></div>");
+        this.questionElement = new component.Base(this.element,"<div class='question'></div>");
         this.listOfRandom = randomLib.getRandom(numberOfElement, colorList.getLenghtColor(), false);
         this.selected = randomLib.getRandom(1, numberOfElement)[0];
 
@@ -93,12 +92,12 @@ class RowOfDots extends domCore.baseTemplate{
             }
         for (var i = 0; i < this.numberOfElement; i++) {
             this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
-            this.colorsDotCollection.append(this.listOfElement[i].element[0]);
+            this.colorsDotCollection.element.append(this.listOfElement[i].element[0]);
         }
 
-        this.questionElement.text(this.listOfElement[this.selected].color.name);
-        this.element.append(this.colorsDotCollection);
-        this.element.append(this.questionElement);
+        this.questionElement.element.text(this.listOfElement[this.selected].color.name);
+        this.element.append(this.colorsDotCollection.element);
+        this.element.append(this.questionElement.element);
     }
 }
 
@@ -140,7 +139,7 @@ class Game {
     }
 }
 
-var listOfColors = new domCore.listGenerator<colorList.IColor>();
+var listOfColors = new component.listGenerator<colorList.IColor>();
 var board = new Board('#header', '<div></div>');
 var game = new Game();
 

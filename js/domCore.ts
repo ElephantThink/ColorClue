@@ -1,11 +1,15 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+
 export interface IAttrs {
 }
 
-export class baseTemplate {
+type template = string;
+
+export class Base {
     parentElement: JQuery;
     element: JQuery;
 
-    constructor(parentElement: any, template: string) {
+    constructor(parentElement: any, template: template) {
         this.parentElement = (typeof(parentElement)==='string') ? $(parentElement) : parentElement;
         this.element = $(template);
     }
@@ -29,10 +33,9 @@ export class baseTemplate {
     }
 }
 
-
+//Should be in other Library of Generators
 export class listGenerator < T >{
     listOf: T[] = [];
-
 
     getItemFromIndex(index:number): T {
         return this.listOf[index];
@@ -41,5 +44,4 @@ export class listGenerator < T >{
     addItem(T) {
         this.listOf.push(T);
     }
-
 }
