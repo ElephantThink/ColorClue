@@ -31,6 +31,10 @@ export class Base {
             callBack(e);
         })
     }
+
+    doJQuery(method:string,value) {
+        this.element[method](value)
+    }
 }
 
 //Should be in other Library of Generators

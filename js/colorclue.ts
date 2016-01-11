@@ -92,12 +92,12 @@ class RowOfDots extends component.Base{
             }
         for (var i = 0; i < this.numberOfElement; i++) {
             this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
-            this.colorsDotCollection.element.append(this.listOfElement[i].element[0]);
+            this.colorsDotCollection.doJQuery('append',this.listOfElement[i].element[0]);
         }
 
-        this.questionElement.element.text(this.listOfElement[this.selected].color.name);
-        this.element.append(this.colorsDotCollection.element);
-        this.element.append(this.questionElement.element);
+        this.questionElement.doJQuery('text',this.listOfElement[this.selected].color.name);
+        this.colorsDotCollection.addElement();
+        this.questionElement.addElement();
     }
 }
 
