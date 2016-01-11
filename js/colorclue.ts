@@ -4,7 +4,7 @@ import randomLib = require('randomCore');
 import colorList = require('colorList');
 import colorMetric = require('colorCore');
 import domCore = require('domCore');
-
+import timing = require('timingCore');
 
 class Board extends domCore.baseTemplate {
     private goodPoints: number = 0;
@@ -66,7 +66,6 @@ class Dot extends domCore.baseTemplate {
     }
 }
 
-
 class RowOfDots extends domCore.baseTemplate{
     private numberOfElement: number;
 
@@ -85,25 +84,11 @@ class RowOfDots extends domCore.baseTemplate{
         this.selected = randomLib.getRandom(1, numberOfElement)[0];
 
         listOfColors.addItem(colorList.getColorUsingIndex(this.listOfRandom[this.selected]));
-
-
-        // function checkList() {
             if (listOfColors.listOf.indexOf(colorList.getColorUsingIndex(this.listOfRandom[this.selected])) !== -1) {
                 this.selected = randomLib.getRandom(1, numberOfElement)[0];
-                // checkList();
             }
-        // }
-
-
-
-
-
-        // checkList();
-
         for (var i = 0; i < this.numberOfElement; i++) {
-
             this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
-
             this.colorsDotCollection.append(this.listOfElement[i].element[0]);
         }
 
@@ -113,36 +98,28 @@ class RowOfDots extends domCore.baseTemplate{
     }
 }
 
-
-
 interface IOptions {
     rows: number;
     dots: number;
     nivel: number;
 }
 
-//Set Options of the game
 var Options: IOptions = {
     rows: 20,
     dots: 5,
     nivel: 1,
 }
 
-
-
 class Game {
     constructor() {
         var rows: RowOfDots[] = [];
 
         for (var j = 0; j < Options.rows; j++) {
-            console.log(listOfColors.listOf);
             rows[j] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
             $('#main').append(rows[j].element);
         }
     }
 }
-
-
 
     var listOfColors = new domCore.listGenerator<colorList.IColor>();
     var board = new Board('#header', '<div></div>');
@@ -159,7 +136,7 @@ class Game {
     add groups
     add learn colors to no repeat
     add modules //
-    add timr modules
+    add timr modules //
     add Design / bower Bootstrap
 */
 
