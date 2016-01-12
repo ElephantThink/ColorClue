@@ -12,14 +12,14 @@ export interface IColorDescription {
 export interface IColor extends IColorDescription, IGroupColor { }
 
 export var LISTOFCOLOR: IColor[] = [
-    { "name": "Alice Blue", "hex": "#f0f8ff", "groupColor": "" },
-    { "name": "Antique White", "hex": "#faebd7", "groupColor": "" },
+    { "name": "Alice Blue", "hex": "#f0f8ff", "groupColor": "White" },
+    { "name": "Antique White", "hex": "#faebd7", "groupColor": "White" },
     { "name": "Aqua", "hex": "#00ffff", "groupColor": "Cyan" },
     { "name": "Aquamarine", "hex": "#7fffd4", "groupColor": "Cyan" },
     { "name": "Azure", "hex": "#f0ffff", "groupColor": "Cyan" },
-    { "name": "Beige", "hex": "#f5f5dc", "groupColor": "" },
+    { "name": "Beige", "hex": "#f5f5dc", "groupColor": "White" },
     { "name": "Bisque", "hex": "#ffe4c4", "groupColor": "Brown" },
-    { "name": "Black", "hex": "#000000", "groupColor": "" },
+    { "name": "Black", "hex": "#000000", "groupColor": "Gray" },
     { "name": "Blanched Almond", "hex": "#ffebcd", "groupColor": "Brown" },
     { "name": "Blue", "hex": "#0000ff", "groupColor": "Blue" },
     { "name": "Blue Violet", "hex": "#8a2be2", "groupColor": "Purple" },
@@ -36,9 +36,9 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Dark Blue", "hex": "#00008b", "groupColor": "Blue" },
     { "name": "Dark Cyan", "hex": "#008b8b", "groupColor": "Cyan" },
     { "name": "Dark Golden Rod", "hex": "#b8860b", "groupColor": "Brown" },
-    { "name": "Dark Gray", "hex": "#a9a9a9", "groupColor": "" },
+    { "name": "Dark Gray", "hex": "#a9a9a9", "groupColor": "Gray" },
     { "name": "Dark Green", "hex": "#006400", "groupColor": "Green" },
-    { "name": "Dark Grey", "hex": "#a9a9a9", "groupColor": "" },
+    { "name": "Dark Grey", "hex": "#a9a9a9", "groupColor": "Gray" },
     { "name": "Dark Khaki", "hex": "#bdb76b", "groupColor": "Yellow" },
     { "name": "Dark Magenta", "hex": "#8b008b", "groupColor": "Purple" },
     { "name": "Dark olive Green", "hex": "#556b2f", "groupColor": "Green" },
@@ -48,32 +48,32 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Dark Salmon", "hex": "#e9967a", "groupColor": "Red" },
     { "name": "Dark Sea Green", "hex": "#8fbc8f", "groupColor": "Green" },
     { "name": "Dark Slate Blue", "hex": "#483d8b", "groupColor": "Purple" },
-    { "name": "Dark Slate gray", "hex": "#2f4f4f", "groupColor": "Green" },
-    { "name": "Dark Slate grey", "hex": "#2f4f4f", "groupColor": "" },
+    { "name": "Dark Slate gray", "hex": "#2f4f4f", "groupColor": "Gray" },
+    { "name": "Dark Slate grey", "hex": "#2f4f4f", "groupColor": "Gray" },
     { "name": "Dark turquoise", "hex": "#00ced1", "groupColor": "Cyan" },
     { "name": "Dark violet", "hex": "#9400d3", "groupColor": "Purple" },
     { "name": "Deep pink", "hex": "#ff1493", "groupColor": "Pink" },
     { "name": "Deep skyBlue", "hex": "#00bfff", "groupColor": "Blue" },
-    { "name": "Dim gray", "hex": "#696969", "groupColor": "" },
-    { "name": "Dim grey", "hex": "#696969", "groupColor": "" },
+    { "name": "Dim gray", "hex": "#696969", "groupColor": "Gray" },
+    { "name": "Dim grey", "hex": "#696969", "groupColor": "Grey" },
     { "name": "Dodger Blue", "hex": "#1e90ff", "groupColor": "Blue" },
     { "name": "Firebrick", "hex": "#b22222", "groupColor": "Red" },
-    { "name": "Floral White", "hex": "#fffaf0", "groupColor": "" },
+    { "name": "Floral White", "hex": "#fffaf0", "groupColor": "White" },
     { "name": "Forest Green", "hex": "#228b22", "groupColor": "Green" },
     { "name": "Fuchsia", "hex": "#ff00ff", "groupColor": "Purple" },
-    { "name": "Gainsboro", "hex": "#dcdcdc", "groupColor": "" },
-    { "name": "Ghostwhite", "hex": "#f8f8ff", "groupColor": "" },
+    { "name": "Gainsboro", "hex": "#dcdcdc", "groupColor": "Gray" },
+    { "name": "Ghost White", "hex": "#f8f8ff", "groupColor": "White" },
     { "name": "Gold", "hex": "#ffd700", "groupColor": "Yellow" },
     { "name": "Goldenrod", "hex": "#daa520", "groupColor": "Brown" },
-    { "name": "Gray", "hex": "#808080", "groupColor": "" },
+    { "name": "Gray", "hex": "#808080", "groupColor": "Gray" },
     { "name": "Green", "hex": "#008000", "groupColor": "Green" },
-    { "name": "Greenyellow", "hex": "#adff2f", "groupColor": "Green" },
-    { "name": "Grey", "hex": "#808080", "groupColor": "" },
-    { "name": "Honeydew", "hex": "#f0fff0", "groupColor": "" },
+    { "name": "Green Yellow", "hex": "#adff2f", "groupColor": "Green" },
+    { "name": "Grey", "hex": "#808080", "groupColor": "Gray" },
+    { "name": "Honeydew", "hex": "#f0fff0", "groupColor": "white" },
     { "name": "Hot Pink", "hex": "#ff69b4", "groupColor": "Pink" },
     { "name": "Indian Red", "hex": "#cd5c5c", "groupColor": "Red" },
     { "name": "Indigo", "hex": "#4b0082", "groupColor": "Purple" },
-    { "name": "Ivory", "hex": "#fffff0", "groupColor": "" },
+    { "name": "Ivory", "hex": "#fffff0", "groupColor": "White" },
     { "name": "Khaki", "hex": "#f0e68c", "groupColor": "Yellow" },
     { "name": "Lavender ", "hex": "#e6e6fa", "groupColor": "Purple" },
     { "name": "Lavender Blush", "hex": "#fff0f5", "groupColor": "Pink" },
@@ -83,20 +83,20 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Light Coral", "hex": "#f08080", "groupColor": "Red" },
     { "name": "Light Cyan", "hex": "#e0ffff", "groupColor": "Cyan" },
     { "name": "Light Goldenrodyellow", "hex": "#fafad2", "groupColor": "Yellow" },
-    { "name": "Light Gray", "hex": "#d3d3d3", "groupColor": "" },
+    { "name": "Light Gray", "hex": "#d3d3d3", "groupColor": "Gray" },
     { "name": "Light Green", "hex": "#90ee90", "groupColor": "Green" },
-    { "name": "Light Grey", "hex": "#d3d3d3", "groupColor": "" },
+    { "name": "Light Grey", "hex": "#d3d3d3", "groupColor": "Gray" },
     { "name": "Light Pink", "hex": "#ffb6c1", "groupColor": "Pink" },
     { "name": "Light Salmon", "hex": "#ffa07a", "groupColor": "Red" },
     { "name": "Light Sea  Green", "hex": "#20b2aa", "groupColor": "Cyan" },
     { "name": "Light SkyBlue", "hex": "#87cefa", "groupColor": "Blue" },
-    { "name": "Light Slate gray", "hex": "#778899", "groupColor": "" },
-    { "name": "Light Slate grey", "hex": "#778899", "groupColor": "" },
+    { "name": "Light Slate gray", "hex": "#778899", "groupColor": "Gray" },
+    { "name": "Light Slate grey", "hex": "#778899", "groupColor": "Gray" },
     { "name": "Light steelBlue", "hex": "#b0c4de", "groupColor": "Blue" },
     { "name": "Light Yellow", "hex": "#ffffe0", "groupColor": "Yellow" },
     { "name": "Lime", "hex": "#00ff00", "groupColor": "Green" },
     { "name": "Lime Green", "hex": "#32cd32", "groupColor": "Green" },
-    { "name": "Linen", "hex": "#faf0e6", "groupColor": "" },
+    { "name": "Linen", "hex": "#faf0e6", "groupColor": "White" },
     { "name": "Magenta", "hex": "#ff00ff", "groupColor": "Purple" },
     { "name": "Maroon", "hex": "#800000", "groupColor": "Brown" },
     { "name": "Medium Aquamarine", "hex": "#66cdaa", "groupColor": "Cyan" },
@@ -109,12 +109,12 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Medium Turquoise", "hex": "#48d1cc", "groupColor": "Cyan" },
     { "name": "medium Violet Red", "hex": "#c71585", "groupColor": "Pink" },
     { "name": "Midnight Blue", "hex": "#191970", "groupColor": "Blue" },
-    { "name": "Mint Cream", "hex": "#f5fffa", "groupColor": "" },
+    { "name": "Mint Cream", "hex": "#f5fffa", "groupColor": "White" },
     { "name": "Misty Rose", "hex": "#ffe4e1", "groupColor": "Pink" },
     { "name": "Moccasin", "hex": "#ffe4b5", "groupColor": "Yellow" },
     { "name": "Navajo White", "hex": "#ffdead", "groupColor": "Brown" },
     { "name": "Navy", "hex": "#000080", "groupColor": "Blue" },
-    { "name": "Oldlace", "hex": "#fdf5e6", "groupColor": "" },
+    { "name": "Oldlace", "hex": "#fdf5e6", "groupColor": "White" },
     { "name": "Olive", "hex": "#808000", "groupColor": "Green" },
     { "name": "Olive Drab", "hex": "#6b8e23", "groupColor": "Green" },
     { "name": "Orange", "hex": "#ffa500", "groupColor": "Orange" },
@@ -139,13 +139,13 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Salmon", "hex": "#fa8072", "groupColor": "Red" },
     { "name": "Sandy Brown", "hex": "#f4a460", "groupColor": "Brown" },
     { "name": "Sea Green", "hex": "#2e8b57", "groupColor": "Green" },
-    { "name": "Sea Shell", "hex": "#fff5ee", "groupColor": "" },
+    { "name": "Sea Shell", "hex": "#fff5ee", "groupColor": "White" },
     { "name": "Sienna", "hex": "#a0522d", "groupColor": "Brown" },
-    { "name": "Silver", "hex": "#c0c0c0", "groupColor": "" },
+    { "name": "Silver", "hex": "#c0c0c0", "groupColor": "Silver" },
     { "name": "Sky Blue", "hex": "#87ceeb", "groupColor": "Blue" },
     { "name": "Slate Blue", "hex": "#6a5acd", "groupColor": "Purple" },
-    { "name": "Slate Gray", "hex": "#708090", "groupColor": "" },
-    { "name": "Snow", "hex": "#fffafa", "groupColor": "" },
+    { "name": "Slate Gray", "hex": "#708090", "groupColor": "Gray" },
+    { "name": "Snow", "hex": "#fffafa", "groupColor": "White" },
     { "name": "Spring Green", "hex": "#00ff7f", "groupColor": "Green" },
     { "name": "Steel Blue", "hex": "#4682b4", "groupColor": "Blue" },
     { "name": "Tan", "hex": "#d2b48c", "groupColor": "Brown" },
@@ -155,8 +155,8 @@ export var LISTOFCOLOR: IColor[] = [
     { "name": "Turquoise", "hex": "#40e0d0", "groupColor": "Cyan" },
     { "name": "Violet", "hex": "#ee82ee", "groupColor": "Purple" },
     { "name": "Wheat", "hex": "#f5deb3", "groupColor": "Brown" },
-    { "name": "White", "hex": "#ffffff", "groupColor": "" },
-    { "name": "Whitesmoke", "hex": "#f5f5f5", "groupColor": "" },
+    { "name": "White", "hex": "#ffffff", "groupColor": "White" },
+    { "name": "Whitesmoke", "hex": "#f5f5f5", "groupColor": "White" },
     { "name": "Yellow", "hex": "#ffff00", "groupColor": "Yellow" },
     { "name": "Yellow Green", "hex": "#9acd32", "groupColor": "Green" }
 ];
@@ -177,7 +177,7 @@ export function getColorUsingIndex(index: number): IColor {
     return LISTOFCOLOR[index];
 }
 
-export function getLenghtColor(): number {
+export function getLenghtOfListColor(): number {
     return LISTOFCOLOR.length;
 }
 
@@ -189,23 +189,23 @@ var groupsColor: string[] = [
     'Yellow',
     'Brown',
     'Green',
-    'Cyan Colors',
-    'Blue Colors',
-    'Gray Colors',
-    'White Colors'
+    'Cyan',
+    'Blue',
+    'Gray',
+    'White'
 ];
 
 
 
-export function getGroupsColor(): string[] {
+export function getListGroupsColor(): string[] {
     return groupsColor;
 }
 
-export function getColorsInGroupsColors(groupName:string): IColor[] {
+export function getListColorsInGroups(groupName:string): IColor[] {
     var newObject = [];
 
     LISTOFCOLOR.forEach(function(color, index) {
-        if (groupName===color.groupColor){
+        if (groupName.toLowerCase()===color.groupColor.toLowerCase()){
             newObject.push(color);
         }
     })

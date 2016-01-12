@@ -12,7 +12,7 @@ class Board extends component.Base {
 
         constructor(parentElement: string, template: string) {
             super(parentElement, template);
-            this.addElement();
+            this.appendThisElement();
             this.renderScreen();
         };
 
@@ -27,7 +27,7 @@ class Board extends component.Base {
         };
 
         renderScreen():void {
-            this.element.text('Good : ' + this.goodPoints + '/ Bad : ' + this.badPoints);
+            this.doJQuery('text','Good : ' + this.goodPoints + '/ Bad : ' + this.badPoints);
         };
 }
 
@@ -35,17 +35,18 @@ class Dot extends component.Base {
     color: colorList.IColor;
     constructor(parentElement: any, template: string, item: colorList.IColor, selected: number) {
         super(parentElement, template);
-        super.addElement();
+        this.appendThisElement();
 
-        super.addAttr({
+        this.addAttr({
             title: item.hex,
+            group: item.groupColor
         });
 
-        super.addStyle({
-            backgroundColor: item.hex
+        this.addStyle({
+            backgroundColor: item.hex,
         });
 
-        super.addEvent('click', (e) => { this.checkAnswer(e, selected) });
+        this.addEvent('click', (e) => { this.checkAnswer(e, selected) });
 
         var className = (colorMetric.hexToHsl(item.hex).l > 0.60) ? 'light' : 'Dark ';
         this.element.addClass(className);
@@ -56,7 +57,7 @@ class Dot extends component.Base {
         this.parentElement.find('.color-dot').off('click');
 
         if (!(e.currentTarget === this.parentElement.find('.color-dot').eq(selected)[0])) {
-            this.element.addClass('incorrect');
+            this.doJQuery('addClass','incorrect');
             board.putBadPoints();
         } else {
             board.putGoodPoints();
@@ -69,48 +70,95 @@ class Dot extends component.Base {
 }
 
 
+interface IRandomColors {
+    listOfRandom: colorList.IColor[],
+    selected: number;
+}
+
 class RowOfDots extends component.Base{
     private numberOfElement: number;
 
     colorsDotCollection: component.Base;
     questionElement:component.Base;
     listOfElement: Dot[] = [];
-    listOfRandom: number[];
-    selected: number;
+    selection: IRandomColors;
 
-    constructor(parentElement,template,numberOfElement) {
+
+    constructor(parentElement,template,options:IOptions) {
         super(parentElement, template);
-        this.numberOfElement = numberOfElement;
+        this.numberOfElement = options.dots;
         this.colorsDotCollection = new component.Base(this.element,"<div class='dot-collections'></div>");
-        this.questionElement = new component.Base(this.element,"<div class='question'></div>");
-        this.listOfRandom = randomLib.getRandom(numberOfElement, colorList.getLenghtColor(), false);
-        this.selected = randomLib.getRandom(1, numberOfElement)[0];
+        this.questionElement = new component.Base(this.element, "<div class='question'></div>");
 
-        listOfColors.addItem(colorList.getColorUsingIndex(this.listOfRandom[this.selected]));
-            if (listOfColors.listOf.indexOf(colorList.getColorUsingIndex(this.listOfRandom[this.selected])) !== -1) {
-                this.selected = randomLib.getRandom(1, numberOfElement)[0];
-            }
+        this.selection = this.randomColorGenerator();
+
         for (var i = 0; i < this.numberOfElement; i++) {
-            this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",colorList.getColorUsingIndex(this.listOfRandom[i]), this.selected);
+
+            this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>",this.selection.listOfRandom[i], this.selection.selected);
             this.colorsDotCollection.doJQuery('append',this.listOfElement[i].element[0]);
         }
 
-        this.questionElement.doJQuery('text',this.listOfElement[this.selected].color.name);
-        this.colorsDotCollection.addElement();
-        this.questionElement.addElement();
+        this.questionElement.doJQuery('text',this.listOfElement[this.selection.selected].color.name);
+        this.colorsDotCollection.appendThisElement();
+        this.questionElement.appendThisElement();
+    }
+
+    randomColorGenerator() {
+
+        var objectReturn:IRandomColors = {
+            selected: undefined,
+            listOfRandom: []
+        };
+
+        switch (Options.level) {
+            case 1:
+                var listColorSelected = randomLib.getRandom(this.numberOfElement, colorList.getLenghtOfListColor(), false);
+
+                for (var k = 0; k < listColorSelected.length; k++){
+                    objectReturn.listOfRandom.push(colorList.getColorUsingIndex(listColorSelected[k]));
+                }
+
+                objectReturn.selected = randomLib.getRandom(1, this.numberOfElement)[0];
+                break;
+            case 2:
+
+                break;
+            case 3:
+                var index = randomLib.getRandom(1, colorList.getLenghtOfListColor())[0];
+                var colorSelected: colorList.IColor = colorList.getColorUsingIndex(index);
+
+                var colorInTheGroup = colorList.getListColorsInGroups(colorSelected.groupColor);
+
+                var listColorSelected = randomLib.getRandom(this.numberOfElement, colorInTheGroup.length, false);
+
+
+                for (var k = 0; k < listColorSelected.length; k++){
+                    objectReturn.listOfRandom.push(colorInTheGroup[listColorSelected[k]]);
+                }
+
+
+                objectReturn.selected = randomLib.getRandom(1, this.numberOfElement)[0];
+
+                break;
+
+            default:
+                break;
+        }
+
+        return objectReturn;
     }
 }
 
 interface IOptions {
     rows: number;
     dots: number;
-    nivel: number;
+    level: number;
 }
 
 var Options: IOptions = {
     rows:5,
     dots: 5,
-    nivel: 1,
+    level: 1,
 }
 
 class Game {
@@ -118,7 +166,7 @@ class Game {
         var rows: RowOfDots[] = [];
 
         function make(i:number) {
-             rows[i] = new RowOfDots('#main', '<div class="row-color"></div>', Options.dots);
+             rows[i] = new RowOfDots('#main', '<div class="row-color"></div>', Options);
             $('#main').append(rows[i].element);
         }
 
@@ -126,9 +174,9 @@ class Game {
             make(j);
         }
 
-        setTimeout(function() {
-            alert('stop');
-        }, 60000);
+        // setTimeout(function() {
+        //     alert('stop');
+        // }, 60000);
 
         setInterval(function() {
             if ($('.row-color:visible').length < 5) {

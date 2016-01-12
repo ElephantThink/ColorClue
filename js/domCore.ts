@@ -14,7 +14,7 @@ export class Base {
         this.element = $(template);
     }
 
-    addElement():void {
+    appendThisElement():void {
         this.parentElement.append(this.element);
     }
 
