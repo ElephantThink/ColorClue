@@ -162,28 +162,23 @@ var Options: IOptions = {
 }
 
 class Game {
+
+    element: JQuery;
+    rows: component.listGenerator<RowOfDots>;
+
     constructor() {
-        var rows: RowOfDots[] = [];
+        this.element = $('#main');
+        this.rows = new component.listGenerator<RowOfDots>();
 
-        function make(i:number) {
-             rows[i] = new RowOfDots('#main', '<div class="row-color"></div>', Options);
-            $('#main').append(rows[i].element);
+        for (var k = 0; k < Options.rows; k++){
+            this.addOneRow();
         }
+    }
 
-        for (var j = 0; j < Options.rows; j++) {
-            make(j);
-        }
 
-        // setTimeout(function() {
-        //     alert('stop');
-        // }, 60000);
-
-        setInterval(function() {
-            if ($('.row-color:visible').length < 5) {
-                Options.rows++
-                make(Options.rows);
-            }
-         },100);
+    addOneRow() {
+        this.rows.addItem(new RowOfDots(this.element, '<div class="row-color"></div>', Options));
+        this.element.append(this.rows.listOf[this.rows.getLength()-1].element);
     }
 }
 
@@ -196,9 +191,13 @@ var game = new Game();
     Todo
     ============================
 
-    add groups
+    add groups //
+    add learn colors to no repeat //
 
-    add learn colors to no repeat
+medium
+
+documentation
+
 
     implement Time Modules
 

@@ -45,7 +45,11 @@ export class listGenerator < T >{
         return this.listOf[index];
     }
 
-    addItem(T) {
+    addItem(T):void {
         this.listOf.push(T);
+    }
+
+    getLength(): number {
+        return this.listOf.length;
     }
 }
