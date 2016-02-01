@@ -12,6 +12,7 @@ export class Base {
     constructor(parentElement: any, template: template) {
         this.parentElement = (typeof(parentElement)==='string') ? $(parentElement) : parentElement;
         this.element = $(template);
+        // this.addData('_data', {});
     }
 
     appendThisElement():void {
@@ -35,6 +36,18 @@ export class Base {
     doJQuery(method:string,value) {
         this.element[method](value)
     }
+
+    addData(element:any,key:string, data: any) {
+        jQuery.data(element,key, data);
+    }
+
+    getData(element:any,key?: string) {
+        if (key) {
+            return jQuery.data(element)[key];
+        } else {
+            return jQuery.data(element);
+        }
+    }
 }
 
 //Should be in other Library of Generators
@@ -52,4 +65,11 @@ export class listGenerator < T >{
     getLength(): number {
         return this.listOf.length;
     }
+}
+
+
+//Utility
+
+export function getDataFromElement(element: any) {
+    return $.data(element);
 }
