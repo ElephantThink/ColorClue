@@ -4,8 +4,7 @@ import randomLib = require('./lib/utility/randomCore');
 import colorList = require('./lib/color/colorList');
 import colorMetric = require('./lib/color/colorCore');
 import component = require('./lib/dom/domCore');
-import timing = require('./lib/utility/timingCore');
-// import * as rowofdots from './components/rowofdot';
+// import timing = require('./lib/utility/timingCore');
 
 
 export class Dot extends component.Base {
@@ -26,7 +25,7 @@ export class Dot extends component.Base {
 
         this.addEvent('click', (e) => { this.checkAnswer(e, selected) });
 
-        this.addData(this.element[0],'color',item)
+        this.addData('color',item)
 
         var className = (colorMetric.hexToHsl(item.hex).l > 0.60) ? 'light' : 'Dark ';
         this.element.addClass(className);
@@ -35,8 +34,10 @@ export class Dot extends component.Base {
 
     checkAnswer(e: Event, selected: number): void {
         this.parentElement.find('.color-dot').off('click');
+        console.log(component.getDataFromElement(this.parentElement[0]));
 
-        if (!(this.getData(e.currentTarget).color.hex === this.getData(this.parentElement[0]).colorSelected.hex)) {
+
+        if (!(this.getData().color.hex === component.getDataFromElement(this.parentElement[0]).$$Data.colorSelected.hex)) {
             this.doJQuery('addClass','incorrect');
             board.putBadPoints();
         } else {
@@ -58,7 +59,7 @@ export interface IOptions {
 
  interface IRandomColors {
      selected: any,
-     listOfRandom: number[]
+     listOfRandom: colorList.IColor[]
 
  }
 
@@ -87,7 +88,7 @@ export class RowOfDots extends component.Base{
             this.colorsDotCollection.doJQuery('append',this.listOfElement[i].element[0]);
         }
 
-        this.addData(this.element[0],'colorSelected', this.selection.listOfRandom[this.selection.selected]);
+        this.addData('colorSelected', this.selection.listOfRandom[this.selection.selected]);
 
         this.questionElement.doJQuery('text',this.listOfElement[this.selection.selected].color.name);
         this.colorsDotCollection.appendThisElement();
@@ -149,6 +150,8 @@ export class Board extends component.Base {
         constructor(parentElement: string, template: string) {
             super(parentElement, template);
             this.appendThisElement();
+            this.addData('goodPoints', 0);
+            this.addData('badPoints', 0);
             this.renderScreen();
         };
 
@@ -188,41 +191,72 @@ class Rule {
 
 var Options = {
     level: 3,
-    rows: 10,
+    rows: 5,
     dots:5
+}
 
+
+
+
+class Button extends component.Base{
+    constructor(parentElement, template) {
+
+        super(parentElement, template)
+
+        this.addEvent('click', () => {
+
+            this.parentElement.empty();
+
+            listOfColors = new component.listGenerator<colorList.IColor>();
+           board = new Board('#header', '<div></div>');
+           rule = new Rule();
+           game = new Game();
+
+        })
+        this.appendThisElement();
+    }
+}
+
+class IntroScreen extends component.Base{
+    constructor(parentElement, template) {
+        super(parentElement, template);
+
+
+
+        var button = new Button(parentElement, '<input type="button"></input>');
+        button.addAttr({value:'click Here'})
+    }
 }
 
 class Game {
         constructor() {
-
         for (var k = 0; k < Options.rows; k++){
             rule.addOneRow();
         }
     }
-
 }
 
-var listOfColors = new component.listGenerator<colorList.IColor>();
-var board = new Board('#header', '<div></div>');
-var rule = new Rule();
-var game = new Game();
-
-/*
-    =============================
-    Todo
-    ============================
-
-    add groups //
-    add learn colors to no repeat //
-
-medium
-
-documentation
+var listOfColors, board, rule, game;
+var intro = new IntroScreen('.intro', "<div></div>");
 
 
-    implement Time Modules
 
-    add Design / bower Bootstrap
-*/
+
+
+
+// /*
+//     =============================
+//     Todo
+//     ============================
+
+
+// medium
+
+// documentation
+
+
+//     implement Time Modules
+
+//     add Design / bower Bootstrap
+// */
 

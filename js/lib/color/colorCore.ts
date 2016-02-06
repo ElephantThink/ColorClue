@@ -1,6 +1,4 @@
 
-
-
 //Base
 type porcent = number;
 

@@ -1,4 +1,4 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
 
 export interface IAttrs {
 }
@@ -12,7 +12,7 @@ export class Base {
     constructor(parentElement: any, template: template) {
         this.parentElement = (typeof(parentElement)==='string') ? $(parentElement) : parentElement;
         this.element = $(template);
-        // this.addData('_data', {});
+        jQuery.data(this.element[0], '$$Data', {});
     }
 
     appendThisElement():void {
@@ -37,20 +37,16 @@ export class Base {
         this.element[method](value)
     }
 
-    addData(element:any,key:string, data: any) {
-        jQuery.data(element,key, data);
+    addData(key: string, data: any) {
+        jQuery.data(this.element[0], '$$Data')[key] = data;
     }
 
-    getData(element:any,key?: string) {
-        if (key) {
-            return jQuery.data(element)[key];
-        } else {
-            return jQuery.data(element);
-        }
+    getData(key?: string) {
+        return key ? jQuery.data(this.element[0])['$$Data'][key] : jQuery.data(this.element[0])['$$Data'];
     }
 }
 
-//Should be in other Library of Generators
+//Should be in other Library of Generatorsx
 export class listGenerator < T >{
     listOf: T[] = [];
 

@@ -3,13 +3,15 @@ define(["require", "exports"], function (require, exports) {
         var listOfRandom = [];
         var randomNumber;
         function getRandomNumber() {
-            randomNumber = (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
-            if (listOfRandom.indexOf(randomNumber) !== -1) {
-                getRandomNumber();
+            function randomness() {
+                return (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
             }
-            else {
-                listOfRandom.push(randomNumber);
+            randomNumber = randomness();
+            while (listOfRandom.indexOf(randomNumber) !== -1) {
+                randomNumber = randomness();
             }
+            ;
+            listOfRandom.push(randomNumber);
         }
         for (var i = 0; i < returnLenght; i++) {
             getRandomNumber();
