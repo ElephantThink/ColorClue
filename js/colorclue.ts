@@ -6,6 +6,8 @@ import colorMetric = require('./lib/color/colorCore');
 import component = require('./lib/dom/domCore');
 // import timing = require('./lib/utility/timingCore');
 
+window['randomLib'] = randomLib;
+window['colorList'] = colorList;
 
 export class Dot extends component.Base {
     color: colorList.IColor;
@@ -34,8 +36,6 @@ export class Dot extends component.Base {
 
     checkAnswer(e: Event, selected: number): void {
         this.parentElement.find('.color-dot').off('click');
-        console.log(component.getDataFromElement(this.parentElement[0]));
-
 
         if (!(this.getData().color.hex === component.getDataFromElement(this.parentElement[0]).$$Data.colorSelected.hex)) {
             this.doJQuery('addClass','incorrect');
@@ -83,6 +83,8 @@ export class RowOfDots extends component.Base{
 
         for (var i = 0; i < this.numberOfElement; i++) {
 
+            console.log(this.selection);
+
             this.listOfElement[i] = new Dot(this.element, "<div class='color-dot'></div>", this.selection.listOfRandom[i], this.selection.selected);
 
             this.colorsDotCollection.doJQuery('append',this.listOfElement[i].element[0]);
@@ -106,13 +108,13 @@ export class RowOfDots extends component.Base{
 
         switch (Options.level) {
             case 1:
-                var listColorSelected = randomLib.getRandom(this.numberOfElement, colorList.getLenghtOfListColor(), false);
+                var listColorSelected = randomLib.getRandom(Options.dots, colorList.getLenghtOfListColor(), false);
 
                 for (var k = 0; k < listColorSelected.length; k++){
                     objectReturn.listOfRandom.push(colorList.getColorUsingIndex(listColorSelected[k]));
                 }
 
-                objectReturn.selected = randomLib.getRandom(1, this.numberOfElement)[0];
+                objectReturn.selected = randomLib.getRandom(1, Options.dots)[0];
                 break;
             case 2:
 
@@ -123,7 +125,9 @@ export class RowOfDots extends component.Base{
 
                 var colorInTheGroup = colorList.getListColorsInGroups(colorSelected.groupColor);
 
-                var listColorSelected = randomLib.getRandom(this.numberOfElement, colorInTheGroup.length, false);
+                console.log(index,colorSelected,colorInTheGroup.length)
+
+                var listColorSelected = randomLib.getRandom(Options.dots, colorInTheGroup.length, false);
 
 
                 for (var k = 0; k < listColorSelected.length; k++){
@@ -131,7 +135,7 @@ export class RowOfDots extends component.Base{
                 }
 
 
-                objectReturn.selected = randomLib.getRandom(1, this.numberOfElement)[0];
+                objectReturn.selected = randomLib.getRandom(1, Options.dots)[0];
 
                 break;
 

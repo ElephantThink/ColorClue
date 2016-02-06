@@ -2,16 +2,17 @@ define(["require", "exports"], function (require, exports) {
     function getRandom(returnLenght, gap, float) {
         var listOfRandom = [];
         var randomNumber;
+        if (returnLenght > gap) {
+            console.log(returnLenght, gap, float);
+        }
         function getRandomNumber() {
-            function randomness() {
-                return (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
+            randomNumber = (float) ? Math.random() * gap : Math.floor(Math.random() * gap);
+            if (listOfRandom.indexOf(randomNumber) === -1) {
+                listOfRandom.push(randomNumber);
             }
-            randomNumber = randomness();
-            while (listOfRandom.indexOf(randomNumber) !== -1) {
-                randomNumber = randomness();
+            else {
+                getRandomNumber();
             }
-            ;
-            listOfRandom.push(randomNumber);
         }
         for (var i = 0; i < returnLenght; i++) {
             getRandomNumber();

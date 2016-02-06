@@ -41,6 +41,12 @@ export class Base {
         jQuery.data(this.element[0], '$$Data')[key] = data;
     }
 
+    setData(key: string, data: any) {
+        jQuery.data(this.element[0], '$$Data')[key] = data;
+        this.parentElement.empty();
+        this.appendThisElement();
+    }
+
     getData(key?: string) {
         return key ? jQuery.data(this.element[0])['$$Data'][key] : jQuery.data(this.element[0])['$$Data'];
     }
