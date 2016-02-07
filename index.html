@@ -3,31 +3,20 @@
 <head>
     <title>Color Clue</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script data-main="js/colorclue" src="js/require.js"></script>
 </head>
 
-<body>
-    <div id="screen">
-        <div id="header">
-        </div>
-        <div id="main">
-            <div  class="intro">
-                <h1>Start the new Game of<br> Color Clue</h1>
-            </div>
-        </div>
+<body style="background-color:white">
+    <h1 style="color:black">Color Template Lab</h1>
+    <ul>
+        <li><a href="colorclue.html">Color Clue</a></li>
+        <li><a href="colorwall.html">Color Wall</a></li>
+        <li><a href="template.html">template</a></li>
+    </ul>
+    <div id="text">
+
     </div>
 
-    <script>
-        requirejs.config({
-            baseUrl: 'js',
-            paths: {
-                jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min'
-            }
-        });
 
-
-        requirejs(["colorclue"]);
-    </script>
 </body>
 
 </html>

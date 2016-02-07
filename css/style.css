@@ -2,6 +2,8 @@
         body {
             background-color: black;
             color: white;
+            margin:0;
+            padding: 0;
         }
 
         .color-dot {
@@ -69,4 +71,11 @@
         #main{
                 width:60%;
                 margin:0 auto;
+        }
+
+        .box-color{
+            float:left;
+            /*padding: 10px -10px -10px 10px;*/
+
+            font-size: 40px;
         }

@@ -26,6 +26,11 @@ define(["require", "exports"], function (require, exports) {
         Base.prototype.addData = function (key, data) {
             jQuery.data(this.element[0], '$$Data')[key] = data;
         };
+        Base.prototype.setData = function (key, data) {
+            jQuery.data(this.element[0], '$$Data')[key] = data;
+            this.parentElement.empty();
+            this.appendThisElement();
+        };
         Base.prototype.getData = function (key) {
             return key ? jQuery.data(this.element[0])['$$Data'][key] : jQuery.data(this.element[0])['$$Data'];
         };

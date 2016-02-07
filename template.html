@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Color Clue</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script data-main="js/template" src="js/require.js"></script>
+</head>
+
+<body>
+        <div id="main2">
+        </div>
+
+
+
+        <script type="text/x-handlebars-template"  id="template">
+            <div>
+                <h1>${ title }$</h1>
+                <p>${ Text }$</p>
+            </div>
+        </script>
+
+    <script>
+        requirejs.config({
+            baseUrl: 'js',
+            paths: {
+                jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min'
+            }
+        });
+
+
+        requirejs(["template"]);
+    </script>
+</body>
+
+</html>
